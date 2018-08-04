@@ -1,22 +1,26 @@
 <?php
 
 if (isset($_FILES['avatar'])) {
-	$doc = './img/user_img/';
-	$file = good_file(basename($_FILES['avatar']['name']));
-
-	if (move_uploaded_file($_FILES['avatar']['tmp_name'], $doc . $file)) {
-		echo "cool";
-	}
+	$doc = './img/tmp_pic/';
+	if ($_FILES['avatar']['error'] > 0)
+		$erreur = "Erreur lors du transfert";
 	else {
-		echo "bouuu";
+		$tmp_name = md5(uniqid(rand(), true));
+		$file = good_file(basename($_FILES['avatar']['name']), $tmp_name);
+		if (move_uploaded_file($_FILES['avatar']['tmp_name'], $doc . $file)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
 
-function	good_file($file) {
+function	good_file($file, $tmp_name) {
 	$file = strtr($file,
      'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ',
      'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-	$file = preg_replace('/([^.a-z0-9]+)/i', '-', $file);
+	$file = str_replace('/([^.a-z0-9]+)/i', '-', $file);
 	$file_type_autorized = array('.png', '.jpg', '.jpeg');
 	$file_type = strchr($_FILES['avatar']['name'], '.');
 	$max_size = '100000';
@@ -26,13 +30,17 @@ function	good_file($file) {
 			return $file;
 		}
 		else {
+			?><script type="text/javascript">
 			alert('Extensions authorized: .png, .jpg, .jpeg');
 			exit();
+			</script><?php
 		}
 	}
 	else {
+		?><script type="text/javascript">
 		alert('Your file is too big');
 		exit();
+		</script><?php
 	}
 }
 

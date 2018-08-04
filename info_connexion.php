@@ -55,14 +55,14 @@ function	email($login, $mail, $id)
 	$header .= "MIME-Version: 1.0".$passage_ligne;
 	$header .= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 
-	$message .= $passage_ligne."--".$boundary.$passage_ligne;
+	$message = $passage_ligne."--".$boundary.$passage_ligne;
 	$message .= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
 	$message .= "Content-Transfer-Encoding: 8bit".$passage_ligne;
 	$message .= $passage_ligne.$message_html.$passage_ligne;
 	$message .= $passage_ligne."--".$boundary."--".$passage_ligne;
 	$message .= $passage_ligne."--".$boundary."--".$passage_ligne;
 
-	mail($mail, $subject, $message, $header);	
+	mail($mail, $subject, $message, $header);
 }
 	
 ?>

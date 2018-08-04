@@ -16,7 +16,7 @@ function	firstpwd() {
     }
     else {
     	messg.style.color = badColor;
-    	messg.innerHTML = "Too Short !";
+    	messg.innerHTML = "Trop Court !";
     }
 }
 
@@ -42,5 +42,18 @@ function	checkpwd() {
     	img.src = "img/website_img/redcross.png";
     	img.id = "check";
     	document.getElementById("confmsg_2").appendChild(img);
+    }
+}
+
+function    compare_pwd() {
+    var pass1 = document.getElementById('pass1');
+    var pass2 = document.getElementById('pass2');
+
+    if (pass1.value == pass2.value) {
+        return true;
+    }
+    else {
+        alert("Les mots de passe de diffèrent.");
+        return false;
     }
 }

@@ -1,37 +1,77 @@
 <?php
-	print('ok');
 session_start();
 require_once('info_connexion.php');
 $db = bdd();
+
+if (isset($_POST['new_email']) AND empty($_POST['new_login']) AND isset($_SESSION['id'])) {
+	$req = $db->prepare('UPDATE user SET email = :email WHERE id = :id');
+	$req->execute(array(
+		"email" => $_POST['new_email'],
+		"id" => $_SESSION['id']));
+	$_SESSION['email'] = $_POST['new_email'];
+	header("location: user_acount/user_home.php");
+	exit ;
+}
+
+else if (empty($_POST['new_email']) AND isset($_POST['new_login']) AND isset($_SESSION['id'])) {
+	$req = $db->prepare('UPDATE user SET login = :login WHERE id = :id');
+	$req->execute(array(
+		"login" => $_POST['new_login'],
+		"id" => $_SESSION['id']));
+	$_SESSION['login'] = $_POST['new_login'];
+	header("location: user_acount/user_home.php");
+	exit ;
+}
+
+else if (isset($_POST['new_email']) AND isset($_SESSION['id']) AND isset($_POST['new_login'])) {
+	$req = $db->prepare('UPDATE user SET login = :login, email = :email WHERE id = :id');
+	$req->execute(array(
+		"login" => $_POST['new_login'],
+		"email" => $_POST['new_email'],
+		"id" => $_SESSION['id']));
+	$_SESSION['email'] = $_POST['new_email'];
+	$_SESSION['login'] = $_POST['new_login'];
+	echo "1";
+	header("location: user_acount/user_home.php");
+	exit ;
+}
 
 if (isset($_POST['email'])) {
 	find_user_by_email($db, $_POST['email']);
 }
 
 if (isset($_GET['action']) AND isset($_GET['login']) AND isset($_GET['token'])) {
-	$req = $db->prepare("SELECT COUNT(*) AS nb, id AS id FROM user WHERE login = :login");
+	$req = $db->prepare("SELECT COUNT(*) AS nb, id AS id, tstime AS tstime FROM user WHERE login = :login");
 	$req->execute(array("login" => $_GET['login']));
 	$donnee = $req->fetch();
 
-	if ($_GET['action'] == 'chg_pwd' AND password_verify($donnee['id'], $_GET['token'])) {$delta = 86400;
-	$req = $db->prepare("SELECT tstime AS tstime FROM user WHERE ")
-	if ($_SERVER["REQUEST_TIME"] - $tstime < $delta) {
-		header('location: new_passw.php?login='.$_GET['login'].');
-		exit ;
-	}	}
-	else
-		alert("Le token a expiré.")
+	if ($_GET['action'] == 'chg_pwd' AND password_verify($donnee['id'], $_GET['token'])) {
+		$delta = 86400;
+		if ($_SERVER["REQUEST_TIME"] - $donnee['tstime'] < $delta) {
+			$_SESSION['id'] = $donnee['id'];
+			header("location: new_passw.php?id=".$donnee['id']);
+			exit ;
+		}
+		else {
+			?>
+			<script language="javascript">
+				alert("Le token a expiré.");
+				window.location.href='login.php';
+			</script>
+			<?php
+		}
+	}
 }
 
 if (isset($_POST['passwd']) AND isset($_POST['passwd2'])) {
-
 	if (strcmp($_POST['passwd'], $_POST['passwd2']) == 0) {
-		$req = $bd->prepare('UPDATE user SET password = :pwd WHERE id = :id')
+		$req = $db->prepare('UPDATE user SET password = :pwd WHERE id = :id');
 		$req->execute(array(
 			"pwd" => password_hash($_POST['passwd'], PASSWORD_DEFAULT),
-			"id" => $_GET['id']));
+			"id" => $_SESSION['id']));
+		header('Location: login.php');
+		exit ;
 	}
-
 }
 
 function	find_user_by_email($db, $email)
@@ -41,19 +81,26 @@ function	find_user_by_email($db, $email)
 	$donnee = $req->fetch();
 
 	if ($donnee['nb'] == 1) {
-		$token = create_token($donnee[$id]);
+		$token = creat_token($db, $donnee['id'], $email);
 		send_reset_pwd_email($email, $donnee['login'], $token);
 		header('Location: login.php');
 		exit ;
 	}
+	else
+		?>
+		<script language="javascript">
+			alert("Pas d'adresse email correspondant.");
+		</script>
+		<?php
 }
 
-function	creat_token($id) {
+function	creat_token($db, $id, $email) {
 	$token = password_hash($id, PASSWORD_DEFAULT);
-	$req = $db->prepare("UPDATE user SET token = :token AND tstime = :tstime WHERE email = :email");
+	$req = $db->prepare("UPDATE user SET token = :tok, tstime = :tst WHERE email = :email");
 	$req->execute(array(
-		"token" => $token,
-		"tstime" => $_SERVER["REQUEST_TIME"]
+		"tok" => $token,
+		"tst" => $_SERVER["REQUEST_TIME"],
+		"email" => $email
 	));
 	return $token;
 }
@@ -66,7 +113,7 @@ function	send_reset_pwd_email($mail, $login, $token) {
 		$passage_ligne = "\n";
 	}
 
-	$subject = "Réinitialisation de ton mot de passe";
+	$subject = "Réinitialisation de mot de passe";
 	$message_html = "<HTML><BODY><FONT FACE='Arial, Verdana' SIZE=2>Bonjour ".$login.",<br/>";
 	$message_html .= "Si tu as bien fait une demande pour réinitialiser ton mot de passe, tu peut cliquer";
 	$message_html .= "<a href='http://localhost:8888/Camagru/edit_account.php?action=chg_pwd&login=".$login."&token=".$token."'> ici.</a></BODY></HTML>";

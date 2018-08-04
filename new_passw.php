@@ -20,7 +20,7 @@
 	</nav>
 	<h3>Modification du mot de passe<br/><br/></h3>
 	  <div class="Form">
-		<form action="edit_account.php" method="POST" class="Form">
+		<form onsubmit="return compare_pwd()" action="edit_account.php" method="POST" class="Form">
 			<input type="password" name="passwd" id="pass1" placeholder="Password" required="required" pattern=".{6,}" onkeyup="firstpwd(); return false;">
 			<span id="confmsg" class="confmsg">
 			</span><br/>

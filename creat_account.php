@@ -8,28 +8,48 @@ if (isset($_POST['login']) AND isset($_POST['email']) AND isset($_POST['passwd']
 		$login = htmlspecialchars($_POST['login']);
 		$email = htmlspecialchars($_POST['email']);
 
-		if (login_doesnt_exist_yet($_POST['login'], $db) == 0) {
-			if (creat_session($db, $login, $email)) {
-				$id = id_user($db, $login);
-				email($login, $email, password_hash($id, PASSWORD_DEFAULT));
-				header('Location: check_your_mails.php');
-				exit ;
+		if (email_doesnt_exist_yet($_POST['email'], $db) == 0) {
+			if (login_doesnt_exist_yet($_POST['login'], $db) == 0) {
+				if (creat_session($db, $login, $email)) {
+					$id = id_user($db, $login);
+					email($login, $email, password_hash($id, PASSWORD_DEFAULT));
+					header('Location: check_your_mails.php');
+					exit ;
+				}
+				else {
+				?>
+				<script language="javascript">
+					alert("Un des champs remplis est incorrect");
+				</script>
+				<?php
+				}
 			}
 			else {
-			?>
-			<script language="javascript">
-				alert("Un des champs remplis est incorrect");
-			</script>
-			<?php
-		}
-		}
-		else {
-			?>
-			<script language="javascript">
-				alert("Ce login est déjà pris.");
-			</script>
-			<?php
-		}
+				?>
+				<script language="javascript">
+					alert("Ce login est déjà pris.");
+				</script>
+				<?php
+			}
+	}
+	else {
+		?>
+		<script language="javascript">
+			alert("Cet email est déjà pris.");
+		</script>
+		<?php
+	}
+}
+
+function	email_doesnt_exist_yet($email, $db) {
+	$req = $db->prepare("SELECT COUNT(*) AS nb FROM user WHERE email = :email");
+	$req->execute(array("email" => $email));
+	$donne = $req->fetch();
+
+	if ($donne['nb'] == 1)
+		return 1;
+	else
+		return 0;
 }
 
 function	login_doesnt_exist_yet($login, $db) {
@@ -37,7 +57,7 @@ function	login_doesnt_exist_yet($login, $db) {
 	$req->execute(array("login" => $login));
 	$donne = $req->fetch();
 
-	if ($donne['nb'] > 1)
+	if ($donne['nb'] == 1)
 		return 1;
 	else
 		return 0;
