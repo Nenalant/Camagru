@@ -8,11 +8,16 @@ if (isset($_FILES['avatar'])) {
 		$tmp_name = md5(uniqid(rand(), true));
 		$file = good_file(basename($_FILES['avatar']['name']), $tmp_name);
 		if (move_uploaded_file($_FILES['avatar']['tmp_name'], $doc . $file)) {
-			return true;
+			echo true;
 		}
 		else {
-			return false;
+			echo false;
 		}
+		?>
+		<script language="javascript" type="text/javascript">
+
+		</script>
+		<?php
 	}
 }
 

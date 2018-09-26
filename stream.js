@@ -7,9 +7,11 @@ var streaming   = false,
     startbutton = document.querySelector('#startbutton'),
     download    = document.querySelector('#btn_download'),
     publish     = document.querySelector('#publish'),
-    import_pic  = document.querySelector('#avatar_send'),
-    avatar_file = document.querySelector('#avatar_file'),
-    old_pic     = document.querySelector('#old_pic');
+    import_pic  = document.querySelector('#pic_send'),
+    avatar_file = document.querySelector('#fileToUpload'),
+    old_pic     = document.querySelector('#old_pic'),
+    down_img    = document.getElementsByName('imported_pic'),
+    coco        = 0;
     width = 200,
     height = 0;
 
@@ -36,7 +38,7 @@ navigator.getUserMedia(
     // video.getContext("2d").drawImage(img, 0, 0, 90, 90);
   },
   function(err) {
-    console.log("An error occured! " + err);
+    console.log("Camera desactivee");
   }
 );
 
@@ -72,6 +74,7 @@ function  put_filter_on_cam(id) {
 }
 
 function takepicture() {
+
   if (photo.hasAttribute('src'))
   {
     tmp_pic_place = document.getElementById('tmp_pic');
@@ -101,6 +104,7 @@ function takepicture() {
       node.name = "tmp_img";
       node.setAttribute('src', photo.src);
       node.setAttribute("id", "tmp_" + this.tmp_id);
+      node.setAttribute('onclick', 'photo.setAttribute("src", this.src);');
 
       tmp_pic_place.appendChild(node);
     }
@@ -114,17 +118,17 @@ function takepicture() {
   photo.setAttribute('src', dataURL);
 }
 
-function  loadXMLDoc(photo) {
+function  loadXMLDoc(photo2) {
   var xml = new XMLHttpRequest();
   var filter = node.src;
+  console.log("photo2.src == " + photo2);
 
   xml.open("POST", "treat_img.php", true);
 
   xml.onreadystatechange = function() {
-    console.log("Sending ajax request");
     if (xml.readyState == 4) {
       if (xml.status == 200) {
-        photo.innerHTML = xml.responseText;
+        photo2.innerHTML = xml.responseText;
         console.log(xml.responseText);
       }
       else if (xml.status == 400) {
@@ -140,25 +144,30 @@ function  loadXMLDoc(photo) {
   };
   console.log("entering treat_img");
   xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xml.send("img=" + photo + "&filter=" + filter);
+  xml.send("img=" + photo2 + "&filter=" + filter);
 }
 
 function  import_file_pic() {
-  // var result = "<?php echo upload.php?>"
-  // if (result == true) {
-    video.width = width;
-    video.height = height;
-    avatar_file = document.querySelector('#avatar_file');
-    console.log(avatar_file.value);
-    video.getContext("2d").drawImage(avatar_file.value, 0, 0, width, height);
-    var img = node;
-    video.getContext("2d").drawImage(img, 56, 2, 65, 65);
-    var dataURL = canvas.toDataURL('image/png');
+    $coco = 1;
+    $dir = "./img/tmp_pic/";
+    $file = "tmp_imported_pic";
+    avatar_file = document.querySelector('#fileToUpload');
+    var parent = document.querySelector('#pic_to_take');
+    var parent2 = document.querySelector("#uuu");
+    var parent3 = document.querySelector('#pic_taken');
+    image_instead_of_video = document.createElement('img');
+    parent.removeChild(document.getElementById("video"));
+    // parent2.removeChild(document.getElementById("startbutton"));
+    parent3.removeChild(document.getElementById("photo"));
+    image_instead_of_video.name = "imported_pic";
+    image_instead_of_video.src =  "./img/tmp_pic/tmppicname.jpg";
+    image_instead_of_video.id = "down_img";
+    console.log("parent == " + parent);
+    console.log("video == " + parent.id);
+    console.log("id  == " + image_instead_of_video.id);
+    console.log("src == " + image_instead_of_video.src);
 
-    photo.setAttribute('src', dataURL);
-  // }
-  // else
-  //   alert("Aucun fichier selectionne");
+    parent.appendChild(image_instead_of_video);
 }
 
 startbutton.addEventListener('click', function(ev){
@@ -173,8 +182,21 @@ startbutton.addEventListener('click', function(ev){
 }, false);
 
 publish.addEventListener('click', function(ev) {
-    loadXMLDoc(photo.src);
+  // if (document.getElementsByName("filter_on_stream").length == 0) {
+  //   alert("Selectionnez un filtre");
+  //   return ;
+  // }
+  // else {
+    // console.log("DOWN_IMG  ====== " + down_img);
+    console.log("PHOTO  ====== " + photo);
+  if (photo.src)
+    var pic_img = photo.src;
+  else
+    var pic_img = "./img/tmp_pic/tmppicname.jpg";
+  console.log("pic_img HELLO == " + pic_img);
+    loadXMLDoc(pic_img);
     alert("La photo a ete publiee !");
+  // }
     ev.preventDefault();
 }, false);
 

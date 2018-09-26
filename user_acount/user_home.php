@@ -1,5 +1,7 @@
 <?php
 session_start();
+if ($_SESSION['login'] == null)
+	header("location: ../login.php");
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,5 +1,7 @@
-<?php 
+<?php
 session_start();
+if ($_SESSION['login'] == null)
+	header("location: login.php");
 require_once('info_connexion.php');
 $db = bdd();
 ?>
@@ -10,7 +12,16 @@ $db = bdd();
 	<link rel="stylesheet" type="text/css" href="index.css">
 	</link>
 </head>
-<body>
+<body
+<?php
+if (isset($_SESSION["tmp_for_js"]) && $_SESSION["tmp_for_js"] === true)
+{
+echo " onload=\"import_file_pic()\"";
+$_SESSION["tmp_for_js"] = false;
+}
+
+?>
+>
 <nav>
 	  <div class="navbar">
 		<div class="pcontent">
@@ -72,9 +83,10 @@ $db = bdd();
 	</li></ul></li></ul>
 	</div>
 <div class="Form">
-	<form>
+	<form id="uuu">
 		<div id="cont_video">
 			<div id="pic_to_take">
+				<div id="down_pict"></div>
 				<video id="video"></video>
 				<div id="webcam_filter" class="filter_on_video"></div>
 			</div>
@@ -88,15 +100,15 @@ $db = bdd();
 			<div id="all_tmp" class="all_tmp">
 				<div id="tmp_pic" class="filter_on_video"></div>
 			</div>
-			<br>
-		</div></br>
+		</div>
+        Prend une photo</br>
     <input type="submit" id="startbutton" name="submit" value="O" />
 </form>
-<form method="POST" action="upload.php" enctype="multipart/form-data" id="avatar_form">
-		<input type="hidden" name="MAX_FILE_SIZE" value="100000">
-		<input type="file" name="avatar" id="avatar_file">
-		<input type="submit" name="envoyer" value="Utiliser cette image" id="avatar_send">
-		</form>
+ <form action="down2.php" method="post" enctype="multipart/form-data"></br> ou </br> Télécharge la tienne :
+    </br>
+        <input type="file" name="myfile" id="fileToUpload">
+        <input type="submit" name="submit" id="pic_send" value="Telecharger" >
+    </form>
 <form>
     <p>Selectionner un filtre</p>
 		<ul>

@@ -14,6 +14,11 @@ strong {
 #sup_m {
 }
 
+#down_img {
+	width: auto;
+	height: 250px;
+}
+
 #menu, #menu ul {
     padding: 0;
     margin: 0;
@@ -23,9 +28,9 @@ strong {
 #menu {
 /* on centre le menu dans la page */
     text-align: center;
-    margin-right: 10px;
+    margin-right: 20px;
+    width: 3em;
 }
-
 
 #menu li {
 /* on place les liens du menu horizontalement */
@@ -45,6 +50,7 @@ strong {
     left: -999em;
     text-align: left;
     z-index: 1000;
+    right: 0em;
 }
 
 #menu_i ul {
@@ -556,10 +562,13 @@ div, footer, main, nav, section {
     right: 0;
 }
 
+#tmp_pic {
+	margin-left: 17%;
+}
+
 div.filter_on_video {
 	flex-direction: initial;
 	align-items: center;
-	margin-left: 12%;
 }
 
 div.all_tmp div.filter_on_video {
@@ -611,8 +620,9 @@ main {
 }
 
 #plus_img {
-	width: 12%;
+	width: 80%;
 	float: right;
+	margin-right: 15%;
 }
 
 #text_plus_img {
@@ -712,8 +722,6 @@ main {
 	margin-top: 2%;
 	display: inline-flex;
 }
-
-
 
 #avatar_file {
 	width: 107px;
