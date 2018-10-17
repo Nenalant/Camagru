@@ -10,8 +10,7 @@ var streaming   = false,
     import_pic  = document.querySelector('#pic_send'),
     avatar_file = document.querySelector('#fileToUpload'),
     old_pic     = document.querySelector('#old_pic'),
-    down_img    = document.getElementsByName('imported_pic'),
-    coco        = 0;
+    down_img    = document.getElementsByName('imported_pic');
     width = 200,
     height = 0;
 
@@ -64,13 +63,13 @@ function  put_filter_on_cam(id) {
     filter_img.removeChild(document.getElementsByName('filter_on_stream')[0]);}
 
   var href_img = "img/filters/" +  id + ".png";
-  node = document.createElement('img');
-  node.id = id + "Image";
-  node.src = href_img;
-  node.alt = id;
-  node.name = "filter_on_stream";
+  node2 = document.createElement('img');
+  node2.id = id + "Image";
+  node2.src = href_img;
+  node2.alt = id;
+  node2.name = "filter_on_stream";
 
-  filter_img.appendChild(node);
+  filter_img.appendChild(node2);
 }
 
 function takepicture() {
@@ -81,7 +80,6 @@ function takepicture() {
 
     if (tmp_pic_place.hasChildNodes())
     {
-      console.log("1");
       if (this.tmp_id == 5)
         this.tmp_id = 5;
       else
@@ -99,7 +97,6 @@ function takepicture() {
     else
     {
       this.tmp_id = 1;
-      console.log("2");
       node = document.createElement('img');
       node.name = "tmp_img";
       node.setAttribute('src', photo.src);
@@ -113,14 +110,15 @@ function takepicture() {
   canvas.height = height;
   canvas.getContext("2d").drawImage(video, 0, 0, width, height);
   var img = document.getElementsByName('filter_on_stream')[0];
-  canvas.getContext("2d").drawImage(img, 56, 2, 65, 65);
+  canvas.getContext("2d").drawImage(img, width/3, 2, 65, 65);
   var dataURL = canvas.toDataURL('image/png');
   photo.setAttribute('src', dataURL);
 }
 
 function  loadXMLDoc(photo2) {
   var xml = new XMLHttpRequest();
-  var filter = node.src;
+  var filter = node2.src;
+  console.log("filter === " + filter);
   console.log("photo2.src == " + photo2);
 
   xml.open("POST", "treat_img.php", true);
@@ -148,7 +146,6 @@ function  loadXMLDoc(photo2) {
 }
 
 function  import_file_pic() {
-    $coco = 1;
     $dir = "./img/tmp_pic/";
     $file = "tmp_imported_pic";
     avatar_file = document.querySelector('#fileToUpload');
@@ -157,15 +154,11 @@ function  import_file_pic() {
     var parent3 = document.querySelector('#pic_taken');
     image_instead_of_video = document.createElement('img');
     parent.removeChild(document.getElementById("video"));
-    // parent2.removeChild(document.getElementById("startbutton"));
+    parent2.removeChild(document.getElementById("startbutton"));
     parent3.removeChild(document.getElementById("photo"));
     image_instead_of_video.name = "imported_pic";
     image_instead_of_video.src =  "./img/tmp_pic/tmppicname.jpg";
     image_instead_of_video.id = "down_img";
-    console.log("parent == " + parent);
-    console.log("video == " + parent.id);
-    console.log("id  == " + image_instead_of_video.id);
-    console.log("src == " + image_instead_of_video.src);
 
     parent.appendChild(image_instead_of_video);
 }
@@ -182,25 +175,18 @@ startbutton.addEventListener('click', function(ev){
 }, false);
 
 publish.addEventListener('click', function(ev) {
-  // if (document.getElementsByName("filter_on_stream").length == 0) {
-  //   alert("Selectionnez un filtre");
-  //   return ;
-  // }
-  // else {
-    // console.log("DOWN_IMG  ====== " + down_img);
-    console.log("PHOTO  ====== " + photo);
-  if (photo.src)
-    var pic_img = photo.src;
-  else
-    var pic_img = "./img/tmp_pic/tmppicname.jpg";
-  console.log("pic_img HELLO == " + pic_img);
+  if (document.getElementsByName("filter_on_stream").length == 0) {
+    alert("Selectionnez un filtre");
+    return ;
+  }
+  else {
+    if (photo.src)
+      var pic_img = photo.src;
+    else
+      var pic_img = "./img/tmp_pic/tmppicname.jpg";
     loadXMLDoc(pic_img);
     alert("La photo a ete publiee !");
-  // }
+  }
     ev.preventDefault();
 }, false);
 
-import_pic.addEventListener('click', function(ev) {
-    import_file_pic();
-    ev.preventDefault();
-}, false);

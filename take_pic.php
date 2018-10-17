@@ -107,7 +107,7 @@ $_SESSION["tmp_for_js"] = false;
  <form action="down2.php" method="post" enctype="multipart/form-data"></br> ou </br> Télécharge la tienne :
     </br>
         <input type="file" name="myfile" id="fileToUpload">
-        <input type="submit" name="submit" id="pic_send" value="Telecharger" >
+        <input type="submit" name="submit" id="pic_send" value="Telecharger">
     </form>
 <form>
     <p>Selectionner un filtre</p>

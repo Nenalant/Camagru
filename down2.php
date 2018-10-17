@@ -3,14 +3,15 @@ session_start();
 $currentDir = getcwd();
 $uploadDirectory = "/img/tmp_pic/";
 
-$errors = []; // Store all foreseen and unforseen errors here
+$errors = [];
 
-$fileExtensions = ['jpeg','jpg','png']; // Get all the file extensions
+$fileExtensions = ['jpeg','jpg','png'];
 
 $fileName = $_FILES['myfile']['name'];
 $fileSize = $_FILES['myfile']['size'];
 $fileTmpName  = $_FILES['myfile']['tmp_name'];
 $fileType = $_FILES['myfile']['type'];
+
 $fileExtension = strtolower(end(explode('.',$fileName)));
 $file_namo = basename($fileName);
 
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) {
 
     if (empty($errors)) {
         $didUpload = move_uploaded_file($fileTmpName, $uploadPath);
-        rename($currentDir .  $uploadDirectory . $file_namo, $currentDir . $uploadDirectory . "tmp_pic_name.jpg");
+        rename($currentDir .  $uploadDirectory . $file_namo, $currentDir . $uploadDirectory . "tmppicname.jpg");
 
         if ($didUpload) {
             $_SESSION["tmp_for_js"] = true;
