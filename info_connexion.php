@@ -1,11 +1,21 @@
 <?php
 
+require_once('./config/database.php');
+
 function	bdd() {
-	try {
-		return $db = new PDO('mysql:host=localhost;dbname=Camagru', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+	global $DB_NAME, $DB_DSN, $DB_USER, $DB_PASSWO;
+	
+	if (isset($DB_DSN) && isset($DB_USER) && isset($DB_PASSWO)) {
+		try {
+			return $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWO, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+		}
+		catch (Exception $e) {
+			die ('Erreur :' . $e->getMessage());
+		}
 	}
-	catch (Exception $e) {
-		die ('Erreur :' . $e->getMessage());
+	else {
+		echo "Cannot access database";
+		exit ;
 	}
 }
 

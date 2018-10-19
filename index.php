@@ -73,7 +73,7 @@ $db = bdd();
      	
      	while ($pic = $req->fetch()) {
 			$pic = $pic['src'];
-			if (!strcmp($pic[0], ".") == 0) {
+			if (!strcmp($pic[0], ".") == 0 && file_exists($dir_path . $pic . ".png")) {
 				$pic_name = $pic;
 				$pic_png = $pic . ".png";
 				$base64 = base64_encode(file_get_contents($dir_path . $pic_png));
