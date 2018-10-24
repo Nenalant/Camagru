@@ -22,9 +22,9 @@ try {
 
 	$db_set->exec($data_base_creation);
 
-	$user = <<< EOF
+	$user = <<< 'EOF'
 	CREATE TABLE `user` (
-	`id` int(11) NOT NULL,
+	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`login` varchar(8) NOT NULL,
 	`email` varchar(30) NOT NULL,
 	`password` varchar(255) NOT NULL,
@@ -32,7 +32,8 @@ try {
 	`token` int(16) DEFAULT NULL,
 	`tstime` int(255) NOT NULL,
 	`like_email` int(11) DEFAULT '1',
-	`com_email` int(11) DEFAULT '1'
+	`com_email` int(11) DEFAULT '1',
+	KEY (id)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -53,10 +54,11 @@ EOF;
 	$db_set->exec($user);
 
 	$img = "CREATE TABLE `photos` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `src` varchar(255) NOT NULL,
   `login` varchar(15) NOT NULL,
-  `img_date` datetime NOT NULL
+  `img_date` datetime NOT NULL,
+	KEY (id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `photos` (`id`, `src`, `login`, `img_date`) VALUES
@@ -80,9 +82,10 @@ INSERT INTO `photos` (`id`, `src`, `login`, `img_date`) VALUES
 	$db_set->exec($img);
 
 	$likes = "CREATE TABLE `likes` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `picture_src` varchar(255) NOT NULL,
-  `liker_login` varchar(8) NOT NULL
+  `liker_login` varchar(8) NOT NULL,
+	KEY (id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -99,11 +102,12 @@ INSERT INTO `likes` (`id`, `picture_src`, `liker_login`) VALUES
 	$db_set->exec($likes);
 
 	$comment = "CREATE TABLE `coments` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pic_name` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,
   `coment` text NOT NULL,
-  `com_date` datetime NOT NULL
+  `com_date` datetime NOT NULL,
+	KEY (id) 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

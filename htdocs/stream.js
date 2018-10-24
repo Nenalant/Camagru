@@ -11,6 +11,7 @@ var streaming   = false,
     avatar_file = document.querySelector('#fileToUpload'),
     old_pic     = document.querySelector('#old_pic'),
     down_img    = document.getElementsByName('imported_pic');
+    img_filt_from_pic_taken = null;
     width = 200,
     height = 0;
 
@@ -111,6 +112,7 @@ function takepicture() {
   canvas.height = height;
   canvas.getContext("2d").drawImage(video, 0, 0, width, height);
   var img = document.getElementsByName('filter_on_stream')[0];
+  img_filt_from_pic_taken = img;
   canvas.getContext("2d").drawImage(img, width/3, 2, 65, 65);
   var dataURL = canvas.toDataURL('image/png');
   photo.setAttribute('src', dataURL);
@@ -118,9 +120,10 @@ function takepicture() {
 
 function  loadXMLDoc(photo2) {
   var xml = new XMLHttpRequest();
-  var filter = node2.src;
-  console.log("filter === " + filter);
-  console.log("photo2.src == " + photo2);
+  if (!img_filt_from_pic_taken)
+    var filter = node2.src;
+  else
+    var filter = img_filt_from_pic_taken;
 
   xml.open("POST", "treat_img.php", true);
 

@@ -58,7 +58,7 @@ $_SESSION["tmp_for_js"] = false;
 	<ul id="menu">
 			<strong id="text_plus_img">Mes Photos</strong>
 		<li>
-	<a href="#">
+	<a href="#" id="plus_img_ho">
 		<img src="./img/website_img/plus.png" id="plus_img"></a>
 			<ul id="menu_i">
 				<li>

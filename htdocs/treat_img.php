@@ -30,6 +30,8 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 	isset($_POST['filter']) && !empty($_POST['filter'])) {
 	
 		$dir = './img/user_img/';
+		if (!file_exists('./img/tmp_pic/'))
+			mkdir('./img/tmp_pic/');
 		$img = $_POST['img'];
 
 		$filter_path = $_POST['filter'];

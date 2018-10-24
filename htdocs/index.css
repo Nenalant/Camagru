@@ -651,6 +651,7 @@ main {
 .cellule_ontakep {
 	position:relative;
 	align-items: last baseline;
+	left: 90%;
 }
 
 #princ_section {
