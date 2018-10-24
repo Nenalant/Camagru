@@ -47,22 +47,22 @@ strong {
 #menu ul {
     position: absolute;
 /* on cache les sous menus complètement sur la gauche */
-    left: -999em;
     text-align: left;
     z-index: 1000;
     right: 0em;
+    visibility: hidden;
 }
 
 #menu_i ul {
     position: absolute;
 /* on cache les sous menus complètement sur la gauche */
-    left: -999em;
     text-align: left;
     z-index: 1000;
     right: 2em;
 }
 
 #menu li:hover ul {
+	visibility: visible;
 /* Au survol des li du menu on replace les sous menus */
     left: auto;
 }
@@ -651,7 +651,7 @@ main {
 .cellule_ontakep {
 	position:relative;
 	align-items: last baseline;
-	left: 90%;
+	float: right;
 }
 
 #princ_section {

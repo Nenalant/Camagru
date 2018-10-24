@@ -54,6 +54,7 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 		}
 		else {
 			$extension = pathinfo($img);
+			echo $extension['extension'];
 			switch ($extension['extension']) {
 				case 'png':
 					$data = imagecreatefrompng($img);
@@ -62,6 +63,8 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 				case 'jpg':
 					$data = imagecreatefromjpeg($img);
 			}
+			echo "data == " . $data . "\n";
+			echo "filter == " . $filter . "\n";
 		$filter_final_size = 100 * imagesx($data) / (250 * imagesx($data) / imagesy($data));
 		$width_r = imagesx($data) / 2 - $filter_final_size / 2;
 		$res_img = imagecreatetruecolor(imagesx($data), imagesy($data));
