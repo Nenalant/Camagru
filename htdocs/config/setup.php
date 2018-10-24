@@ -3,30 +3,37 @@
 include('database.php');
 
 try {
-	$db_set = new PDO($DB_DNS_HOST, $DB_NAME, $DB_PASSWO, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+	$db_set = new PDO($DB_DNS_HOST, $DB_USER, $DB_PASSWO, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
 	$data_base_creation = "
+	SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''));
+
 	SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 
 	SET time_zone = '+00:00';
 
+	DROP DATABASE IF EXISTS $DB_NAME;
+
 	CREATE DATABASE IF NOT EXISTS $DB_NAME;
 
-	USE Camagru;";
+	USE $DB_NAME;
+
+	SET NAMES 'utf8'";
 
 	$db_set->exec($data_base_creation);
 
-	$user = "CREATE TABLE IF NOT EXIST `user` (
-`id` int(11) NOT NULL,
-`login` varchar(8) NOT NULL,
-`email` varchar(30) NOT NULL,
-`password` varchar(255) NOT NULL,
-`verified` int(11) NOT NULL DEFAULT '0',
-`token` int(16) DEFAULT NULL,
-`tstime` int(255) NOT NULL,
-`like_email` int(11) DEFAULT '1',
-`com_email` int(11) DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	$user = <<< EOF
+	CREATE TABLE `user` (
+	`id` int(11) NOT NULL,
+	`login` varchar(8) NOT NULL,
+	`email` varchar(30) NOT NULL,
+	`password` varchar(255) NOT NULL,
+	`verified` int(11) NOT NULL DEFAULT '0',
+	`token` int(16) DEFAULT NULL,
+	`tstime` int(255) NOT NULL,
+	`like_email` int(11) DEFAULT '1',
+	`com_email` int(11) DEFAULT '1'
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 INSERT INTO `user` (`id`, `login`, `email`, `password`, `verified`, `token`, `tstime`, `like_email`, `com_email`) VALUES
@@ -39,11 +46,13 @@ INSERT INTO `user` (`id`, `login`, `email`, `password`, `verified`, `token`, `ts
 (23, 'jojo', 'anne.c.lanteri@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, NULL, 0, 0, 0),
 (29, 'toto', 'toto@toto.com', '$2y$10$GwV8i3hUL/ILAwS1kf9c1esSMZx.M0Gv1yD/FP6Eiko/P06RTlM/G', 0, NULL, 0, 1, 1),
 (31, 'toti', 'toto@toto.com', '$2y$10$HNcZQah1JEfHBkvrj5LowO.2BL1f77EZZpiEPYnyplMLDhujKAHdC', 0, NULL, 0, 1, 1),
-(33, 'fanfan', 'anne.c.lanteri@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, 0, 1526913268, 1, 1);";
+(33, 'fanfan', 'anne.c.lanteri@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, 0, 1526913268, 1, 1);
+
+EOF;
 
 	$db_set->exec($user);
 
-	$img = "CREATE TABLE IF NOT EXIST `photos` (
+	$img = "CREATE TABLE `photos` (
   `id` int(11) NOT NULL,
   `src` varchar(255) NOT NULL,
   `login` varchar(15) NOT NULL,
@@ -70,7 +79,7 @@ INSERT INTO `photos` (`id`, `src`, `login`, `img_date`) VALUES
 
 	$db_set->exec($img);
 
-	$likes = "CREATE TABLE IF NOT EXIST `likes` (
+	$likes = "CREATE TABLE `likes` (
   `id` int(11) NOT NULL,
   `picture_src` varchar(255) NOT NULL,
   `liker_login` varchar(8) NOT NULL
@@ -89,7 +98,7 @@ INSERT INTO `likes` (`id`, `picture_src`, `liker_login`) VALUES
 
 	$db_set->exec($likes);
 
-	$comment = "CREATE TABLE IF NOT EXIST `coments` (
+	$comment = "CREATE TABLE `coments` (
   `id` int(11) NOT NULL,
   `pic_name` varchar(255) NOT NULL,
   `login` varchar(255) NOT NULL,

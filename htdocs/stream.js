@@ -67,6 +67,7 @@ function  put_filter_on_cam(id) {
   node2.id = id + "Image";
   node2.src = href_img;
   node2.alt = id;
+  node2.className = "filter_fitin";
   node2.name = "filter_on_stream";
 
   filter_img.appendChild(node2);

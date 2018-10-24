@@ -572,6 +572,11 @@ div, footer, main, nav, section {
 	margin-left: 17%;
 }
 
+.filter_fitin {
+	height: 100px;
+	width: auto;
+}
+
 div.filter_on_video {
 	flex-direction: initial;
 	align-items: center;
