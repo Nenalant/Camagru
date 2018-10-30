@@ -9,7 +9,7 @@ if (isset($_POST['new_email']) AND empty($_POST['new_login']) AND isset($_SESSIO
 		"email" => $_POST['new_email'],
 		"id" => $_SESSION['id']));
 	$_SESSION['email'] = $_POST['new_email'];
-	header("location: user_acount/user_home.php");
+	header("location: user_home.php");
 	exit ;
 }
 
@@ -19,7 +19,7 @@ else if (empty($_POST['new_email']) AND isset($_POST['new_login']) AND isset($_S
 		"login" => $_POST['new_login'],
 		"id" => $_SESSION['id']));
 	$_SESSION['login'] = $_POST['new_login'];
-	header("location: user_acount/user_home.php");
+	header("location: user_home.php");
 	exit ;
 }
 
@@ -32,7 +32,7 @@ else if (isset($_POST['new_email']) AND isset($_SESSION['id']) AND isset($_POST[
 	$_SESSION['email'] = $_POST['new_email'];
 	$_SESSION['login'] = $_POST['new_login'];
 	echo "1";
-	header("location: user_acount/user_home.php");
+	header("location: user_home.php");
 	exit ;
 }
 

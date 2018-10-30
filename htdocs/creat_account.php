@@ -65,12 +65,13 @@ function	login_doesnt_exist_yet($login, $db) {
 
 function	creat_session($db, $login, $email) {
 	try {
-		$req = $db->prepare('INSERT INTO user(login, email, password) VALUES(:login, :email, :password)');
+		$req = $db->prepare('INSERT INTO user(login, email, password, tstime) VALUES(:login, :email, :password, :tstime)');
 
 		$req->execute(array(
 			'login' => $login,
 			'email' => $email,
-			'password' => password_hash($_POST['passwd'], PASSWORD_DEFAULT)));
+			'password' => password_hash($_POST['passwd'], PASSWORD_DEFAULT),
+			'tstime' => 0));
 
 		$req->closeCursor();
 		return true;

@@ -26,7 +26,7 @@ $db = bdd();
 			  <div class="hiconetoicon">
 				<div>
 					<?php if (isset($_SESSION['login'])) { ?>
-					<a href="user_acount/user_home.php" id="username">
+					<a href="user_home.php" id="username">
 					<?php } ?>
 					<img src="./img/website_img/cute_user.png" id="user"/>
 				</div>

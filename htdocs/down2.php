@@ -5,7 +5,7 @@ $uploadDirectory = "/img/tmp_pic/";
 
 $errors = [];
 
-$fileExtensions = ['jpeg','jpg','png'];
+$fileExtensions = ['jpeg','jpg'];
 
 $fileName = $_FILES['myfile']['name'];
 $fileSize = $_FILES['myfile']['size'];
@@ -20,7 +20,7 @@ $uploadPath = $currentDir . $uploadDirectory . $file_namo;
 if (isset($_POST['submit'])) {
 
     if (! in_array($fileExtension,$fileExtensions)) {
-        $errors[] = "This file extension is not allowed. Please upload a JPEG or PNG file";
+        $errors[] = "This file extension is not allowed. Please upload a JPEG file.";
     }
 
     if ($fileSize > 2000000) {
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
         }
     } else {
         foreach ($errors as $error) {
-            echo $error . "These are the errors" . "\n";
+            echo $error . "\n" . "These are the errors" . "\n";
         }
     }
 }

@@ -56,7 +56,7 @@ function	email($login, $mail, $id)
 	$subject = "Bienvenue sur Camagru";
 	$message_html = "<HTML><BODY><FONT FACE='Arial, Verdana' SIZE=2>Bonjour ".$login.", et bienvenue sur Camagru.<br/>";
 	$message_html .= "Ton compte a bien été créé. Pour partager de nouvelles photos avec tes amis, active ton compte en cliquant";
-	$message_html .= "<a href='http://localhost:8888/Camagru/connexion.php?login=".$login."&cle=".$id."'> ici.</a></BODY></HTML>";
+	$message_html .= "<a href='http://localhost:8080/Camagru/connexion.php?login=".$login."&cle=".$id."'> ici.</a></BODY></HTML>";
 	
 	$boundary = "-----=".md5(rand());
 	

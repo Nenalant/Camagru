@@ -2,16 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header("Content-Type: text/plain");
-
-function	bdd() {
-	try {
-		return $db = new PDO('mysql:host=localhost;dbname=Camagru', 'root', 'root', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-	}
-	catch (Exception $e) {
-		die ('Erreur :' . $e->getMessage());
-	}
-}
-
+require_once('./config/database.php');
+require_once('info_connexion.php');
 $db = bdd();
 
 $email = (htmlentities($_POST["new_email"]));

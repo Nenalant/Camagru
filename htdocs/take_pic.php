@@ -35,7 +35,7 @@ $_SESSION["tmp_for_js"] = false;
 			<div class="hicones2">
 			  <div class="hiconetoicon">
 				<div>
-					<a href="user_acount/user_home.php" id="username"><img src="./img/website_img/cute_user.png" id="user"/>
+					<a href="user_home.php" id="username"><img src="./img/website_img/cute_user.png" id="user"/>
 				</div>
 				<div>
 					<?php if (isset($_SESSION['login'])) echo $_SESSION['login']; else echo ""; ?></a>
@@ -104,7 +104,7 @@ $_SESSION["tmp_for_js"] = false;
         Prend une photo</br>
     <input type="submit" id="startbutton" name="submit" value="O" />
 </form>
- <form action="down2.php" method="post" enctype="multipart/form-data"></br> ou </br> Télécharge la tienne :
+ <form action="down2.php" method="post" enctype="multipart/form-data"></br> ou </br> Télécharge la tienne (.jpg):
     </br>
         <input type="file" name="myfile" id="fileToUpload">
         <input type="submit" name="submit" id="pic_send" value="Telecharger">

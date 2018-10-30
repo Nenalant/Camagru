@@ -1,13 +1,4 @@
 
-function	onsub_like() {
-
-}
-
-
-function	onsub_coms() {
-	
-}
-
 function	email_sub_like() {
 	like_butt = document.getElementById("like_set_email");
 	var	xhr = getXMLHttpRequest();

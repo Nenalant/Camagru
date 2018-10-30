@@ -21,7 +21,7 @@
 		<form action="connexion.php" method="POST" class="Form">
 		<h1 class="Form-title">Welcome</h1>
 		
-			<input type="login" name="login" placeholder="Login" required="required" /><br/>
+			<input type="login" name="login" placeholder="Login" required="required" pattern="[A-Za-z0-9]{1,15}"/><br/>
 			<input type="password" name="passwd" placeholder="Password" required="required" pattern=".{6,}" /><br/>
 			<input type="submit" class="sub_button" name="submit" value="Log In" /><br/>
 			<p id="or">or <a href="signin.php" class="link">Create</a> your new account</br><a href="forgot_passw.php">Forgot your password ?</a></p>

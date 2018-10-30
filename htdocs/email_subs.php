@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../info_connexion.php');
+require_once('info_connexion.php');
 $db = bdd();
 $login = $_SESSION['login'];
 

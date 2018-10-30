@@ -43,11 +43,11 @@ INSERT INTO `user` (`id`, `login`, `email`, `password`, `verified`, `token`, `ts
 (4, 'manolo', 'manolo@manolo.fr', '$2y$10$6uj4P97F33lHFCigxoVer.dWVysppnLh/kcTdjQLU16ojCh3R5oEG', 0, NULL, 0, 1, 1),
 (5, 'alanteri', 'alanteri@student.42.fr', '$2y$10$IyeE9hLT8gM7DdwYFPxo/.XVhyyCX4cfiMrs/GgJXPv7OTI7eyMvq', 0, NULL, 0, 1, 1),
 (6, 'annita', 'annita@gmail.com', '$2y$10$np2FB5qtO0sB7dLYyaLUeu3dnfd6xbxweORLx1IYXsHtPiJZIAU0m', 0, NULL, 0, 1, 1),
-(21, 'paco', 'felinae95@gmail.com', '$2y$10$i/xV39eaTa2mzoiW8o7CdOhXf8tPE6QJVOBRiiN7WU7IqaO/jqmLa', 1, NULL, 0, 1, 1),
-(23, 'jojo', 'anne.c.lanteri@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, NULL, 0, 0, 0),
+(21, 'paco', 'dudul@gmail.com', '$2y$10$i/xV39eaTa2mzoiW8o7CdOhXf8tPE6QJVOBRiiN7WU7IqaO/jqmLa', 1, NULL, 0, 1, 1),
+(23, 'jojo', 'yoooo@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, NULL, 0, 0, 0),
 (29, 'toto', 'toto@toto.com', '$2y$10$GwV8i3hUL/ILAwS1kf9c1esSMZx.M0Gv1yD/FP6Eiko/P06RTlM/G', 0, NULL, 0, 1, 1),
 (31, 'toti', 'toto@toto.com', '$2y$10$HNcZQah1JEfHBkvrj5LowO.2BL1f77EZZpiEPYnyplMLDhujKAHdC', 0, NULL, 0, 1, 1),
-(33, 'fanfan', 'anne.c.lanteri@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, 0, 1526913268, 1, 1);
+(33, 'fanfan', 'yoooo@gmail.com', '$2y$10$FT9A9N3UH9GWLWOOtrTaweeFzz0U3MEq7cdVzx2qlKogy/QcFvJSy', 1, 0, 1526913268, 1, 1);
 
 EOF;
 
