@@ -25,7 +25,7 @@ try {
 	$user = <<< 'EOF'
 	CREATE TABLE `user` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
-	`login` varchar(8) NOT NULL,
+	`login` varchar(15) NOT NULL,
 	`email` varchar(30) NOT NULL,
 	`password` varchar(255) NOT NULL,
 	`verified` int(11) NOT NULL DEFAULT '0',

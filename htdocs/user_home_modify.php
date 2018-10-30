@@ -51,7 +51,7 @@ session_start();
 		<form onsubmit="event.preventDefault();return check_bd_info();" action="edit_account.php" method="post" id="form_modif_login">
 		  <div class="edit_form_user">
 			<div class="modif_piece">
-				Login : <input name="new_login" id="new_login" type="text" placeholder="<?php echo $_SESSION['login']; ?>" />
+				Login : <input name="new_login" id="new_login" type="text" pattern="[A-Za-z0-9]{1,15}" placeholder="<?php echo $_SESSION['login']; ?>" />
 			</div></br>
 			<div class="modif_piece">
 				Email : <input name="new_email" id="new_email" type="email" placeholder="<?php echo $_SESSION['email']; ?>" />

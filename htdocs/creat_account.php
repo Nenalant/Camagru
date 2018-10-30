@@ -6,7 +6,6 @@ $db = bdd();
 if (isset($_POST['login']) AND isset($_POST['email']) AND isset($_POST['passwd'])) {
 	
 		$login = htmlspecialchars($_POST['login']);
-		$email = htmlspecialchars($_POST['email']);
 
 		if (email_doesnt_exist_yet($_POST['email'], $db) == 0) {
 			if (login_doesnt_exist_yet($_POST['login'], $db) == 0) {

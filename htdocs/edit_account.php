@@ -14,23 +14,35 @@ if (isset($_POST['new_email']) AND empty($_POST['new_login']) AND isset($_SESSIO
 }
 
 else if (empty($_POST['new_email']) AND isset($_POST['new_login']) AND isset($_SESSION['id'])) {
+	$newest_login = htmlspecialchars($_POST['new_login']);
+	if (strlen($newest_login) > 15)
+	{
+		header("location: user_home.php");
+		exit ;
+	}
 	$req = $db->prepare('UPDATE user SET login = :login WHERE id = :id');
 	$req->execute(array(
-		"login" => $_POST['new_login'],
+		"login" => $newest_login,
 		"id" => $_SESSION['id']));
-	$_SESSION['login'] = $_POST['new_login'];
+	$_SESSION['login'] = $newest_login;
 	header("location: user_home.php");
 	exit ;
 }
 
 else if (isset($_POST['new_email']) AND isset($_SESSION['id']) AND isset($_POST['new_login'])) {
+	$newest_login = htmlspecialchars($_POST['new_login']);
+	if (strlen($newest_login) > 15)
+	{
+		header("location: user_home.php");
+		exit ;
+	}
 	$req = $db->prepare('UPDATE user SET login = :login, email = :email WHERE id = :id');
 	$req->execute(array(
-		"login" => $_POST['new_login'],
+		"login" => $newest_login,
 		"email" => $_POST['new_email'],
 		"id" => $_SESSION['id']));
 	$_SESSION['email'] = $_POST['new_email'];
-	$_SESSION['login'] = $_POST['new_login'];
+	$_SESSION['login'] = $newest_login;
 	echo "1";
 	header("location: user_home.php");
 	exit ;
