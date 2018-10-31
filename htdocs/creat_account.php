@@ -6,8 +6,13 @@ $db = bdd();
 if (isset($_POST['login']) AND isset($_POST['email']) AND isset($_POST['passwd'])) {
 	
 		$login = htmlspecialchars($_POST['login']);
+		if (($email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) == FALSE)
+		{
+			echo "Le format de ton email est incorrect. Inscription interrompu.";
+			exit ;
+		}	
 
-		if (email_doesnt_exist_yet($_POST['email'], $db) == 0) {
+		if (email_doesnt_exist_yet($email, $db) == 0) {
 			if (login_doesnt_exist_yet($_POST['login'], $db) == 0) {
 				if (creat_session($db, $login, $email)) {
 					$id = id_user($db, $login);
