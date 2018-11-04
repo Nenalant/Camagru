@@ -10,7 +10,7 @@ function	bdd() {
 			return $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWO, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 		}
 		catch (Exception $e) {
-			die ('Erreur :' . $e->getMessage());
+			die ("Tu n'as peut être pas initialisé ta base de donnée. Pour ce faire, vas sur Camagru/config/setup.php");
 		}
 	}
 	else {
