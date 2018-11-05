@@ -34,8 +34,6 @@ navigator.getUserMedia(
       video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
     }
     video.play();
-    // var img = document.querySelector('#filta');
-    // video.getContext("2d").drawImage(img, 0, 0, 90, 90);
   },
   function(err) {
     console.log("Camera desactivee");

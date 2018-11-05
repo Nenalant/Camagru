@@ -29,7 +29,7 @@ try {
 	`email` varchar(30) NOT NULL,
 	`password` varchar(255) NOT NULL,
 	`verified` int(11) NOT NULL DEFAULT '0',
-	`token` int(16) DEFAULT NULL,
+	`token` varchar(255) DEFAULT NULL,
 	`tstime` int(255) NOT NULL,
 	`like_email` int(11) DEFAULT '1',
 	`com_email` int(11) DEFAULT '1',
@@ -75,7 +75,6 @@ INSERT INTO `photos` (`id`, `src`, `login`, `img_date`) VALUES
 (30, 'fanfan_5', 'fanfan', '2018-06-28 19:08:22'),
 (154, 'jojo_8', 'jojo', '2018-10-11 18:45:01'),
 (156, 'jojo_10', 'jojo', '2018-10-11 18:49:58'),
-(198, 'jojo_43', 'jojo', '2018-10-15 18:36:24'),
 (204, 'jojo_49', 'jojo', '2018-10-15 18:43:21'),
 (208, 'jojo_53', 'jojo', '2018-10-15 18:49:51');";
 

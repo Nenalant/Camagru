@@ -2,8 +2,6 @@
 function	sub_comm(elem) {
 	var com_text = elem.elements["one_com"];
 	var	pic = com_text.id;
-	console.log("com_text == " + com_text.value);
-	console.log("elem == " + com_text.id);
 	var xhr = getXMLHttpRequest();
 
 	xhr.open("POST", "comment.php", true);
@@ -25,7 +23,6 @@ function	sub_comm(elem) {
 	       // console.log('XMLHttpRequest not send.');
 	    }
 	};
-	console.log("the_com=" + com_text.value + "&pic=" + pic);
  	xhr.send("the_com=" + com_text.value + "&pic=" + pic);
  	return (false);
 }
@@ -71,7 +68,7 @@ function	liku_color(elem) {
 			}
 	    }
 	    else {
-	       // console.log('XMLHttpRequest not send.');
+	       console.log('XMLHttpRequest not send.');
 	    }
 	};
  	xhr.send("src_for_face=" + num);
@@ -100,7 +97,7 @@ function	how_much_likes(elem) {
 			}
 	    }
 	    else {
-	       // console.log('XMLHttpRequest not send.');
+	       console.log('XMLHttpRequest not send.');
 	    }
 	};
 
@@ -124,7 +121,6 @@ function like_pic(elem) {
 		num_likes.innerHTML--;
 		add_like = 0;
 	}
-	console.log(elem.id);
 	load_likes(elem.id, add_like, num_likes);
 }
 
@@ -148,7 +144,7 @@ function  load_likes(elem, add_like, num_likes) {
 			}
 	    }
 	    else {
-	       // console.log('XMLHttpRequest not send.');
+	       console.log('XMLHttpRequest not send.');
 	    }
 	};
 

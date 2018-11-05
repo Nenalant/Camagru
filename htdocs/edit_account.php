@@ -49,7 +49,13 @@ else if (isset($_POST['new_email']) AND isset($_SESSION['id']) AND isset($_POST[
 }
 
 if (isset($_POST['email'])) {
-	find_user_by_email($db, $_POST['email']);
+	if (($email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) == FALSE)
+	{
+		echo "Le format de ton email est incorrect. Inscription interrompu.";
+		exit ;
+	}
+	else
+		find_user_by_email($db, $email);
 }
 
 if (isset($_GET['action']) AND isset($_GET['login']) AND isset($_GET['token'])) {
@@ -88,7 +94,7 @@ if (isset($_POST['passwd']) AND isset($_POST['passwd2'])) {
 
 function	find_user_by_email($db, $email)
 {
-	$req = $db->prepare("SELECT COUNT(*) AS nb, login AS login, id AS id FROM user WHERE email = :email");
+	$req = $db->prepare("SELECT COUNT(*) AS nb, login AS login, id AS id FROM user WHERE email = :email GROUP BY login, id");
 	$req->execute(array("email" => $email));
 	$donnee = $req->fetch();
 
@@ -128,7 +134,7 @@ function	send_reset_pwd_email($mail, $login, $token) {
 	$subject = "Réinitialisation de mot de passe";
 	$message_html = "<HTML><BODY><FONT FACE='Arial, Verdana' SIZE=2>Bonjour ".$login.",<br/>";
 	$message_html .= "Si tu as bien fait une demande pour réinitialiser ton mot de passe, tu peut cliquer";
-	$message_html .= "<a href='http://localhost:8888/Camagru/edit_account.php?action=chg_pwd&login=".$login."&token=".$token."'> ici.</a></BODY></HTML>";
+	$message_html .= "<a href='http://localhost:8080/Camagru/edit_account.php?action=chg_pwd&login=".$login."&token=".$token."'> ici.</a></BODY></HTML>";
 	
 	$boundary = "-----=".md5(rand());
 	
@@ -137,7 +143,7 @@ function	send_reset_pwd_email($mail, $login, $token) {
 	$header .= "MIME-Version: 1.0".$passage_ligne;
 	$header .= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 
-	$message .= $passage_ligne."--".$boundary.$passage_ligne;
+	$message = $passage_ligne."--".$boundary.$passage_ligne;
 	$message .= "Content-Type: text/html; charset=\"ISO-8859-1\"".$passage_ligne;
 	$message .= "Content-Transfer-Encoding: 8bit".$passage_ligne;
 	$message .= $passage_ligne.$message_html.$passage_ligne;
