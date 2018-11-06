@@ -87,7 +87,7 @@ if (isset($_POST['passwd']) AND isset($_POST['passwd2'])) {
 		$req->execute(array(
 			"pwd" => password_hash($_POST['passwd'], PASSWORD_DEFAULT),
 			"id" => $_SESSION['id']));
-		header('Location: login.php');
+		header('Location: index.php');
 		exit ;
 	}
 }

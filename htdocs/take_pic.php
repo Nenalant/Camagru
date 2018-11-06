@@ -87,7 +87,7 @@ $_SESSION["tmp_for_js"] = false;
 		<div id="cont_video">
 			<div id="pic_to_take">
 				<div id="down_pict"></div>
-				<video id="video"></video>
+				<video id="video" muted="muted"></video>
 				<div id="webcam_filter" class="filter_on_video"></div>
 			</div>
 			<div id="pic_taken">

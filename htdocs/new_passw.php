@@ -21,10 +21,10 @@
 	<h3>Modification du mot de passe<br/><br/></h3>
 	  <div class="Form">
 		<form onsubmit="return compare_pwd()" action="edit_account.php" method="POST" class="Form">
-			<input type="password" name="passwd" id="pass1" placeholder="Password" required="required" pattern=".{6,}" onkeyup="firstpwd(); return false;">
+			<input type="password" name="passwd" id="pass1" placeholder="Password" required="required" pattern=".{6,}" autocomplete="off" onkeyup="firstpwd(); return false;">
 			<span id="confmsg" class="confmsg">
 			</span><br/>
-			<input type="password" name="passwd2" id="pass2" placeholder="Confirm Password" required="required" pattern=".{6,}" onkeyup="checkpwd(); return false;">
+			<input type="password" name="passwd2" id="pass2" placeholder="Confirm Password" required="required" pattern=".{6,}" autocomplete="off" onkeyup="checkpwd(); return false;">
 			<span id="confmsg_2" class="confmsg_2">
 			</span><br/>
 			<input type="submit" class="sub_button" name="submit" value="Send"><br/>

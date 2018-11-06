@@ -1,6 +1,8 @@
 <?php
 session_start();
 $currentDir = getcwd();
+if (!file_exists('./img/tmp_pic/'))
+    mkdir('./img/tmp_pic/');
 $uploadDirectory = "/img/tmp_pic/";
 
 $errors = [];

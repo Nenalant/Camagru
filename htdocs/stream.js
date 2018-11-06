@@ -20,16 +20,17 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.mozGetUserMedia ||
                        navigator.msGetUserMedia);
 
-navigator.getUserMedia(
+if (navigator.getUserMedia) {
+  navigator.getUserMedia(
   { 
-    video: true, 
-    audio: false 
+    video: true,
+    audio: false
   },
   function(stream) {
-    if (navigator.mozGetUserMedia) {
+    try {
       video.srcObject = stream;
     } 
-    else {
+    catch {
       var vendorURL = window.URL || window.webkitURL;
       video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
     }
@@ -37,8 +38,11 @@ navigator.getUserMedia(
   },
   function(err) {
     console.log("Camera desactivee");
-  }
-);
+  });
+}
+else {
+  console.log("getUserMedia not supported");
+}
 
 video.addEventListener('canplay', function(ev){
   if (!streaming) {

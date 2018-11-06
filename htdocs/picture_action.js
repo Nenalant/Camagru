@@ -68,7 +68,7 @@ function	liku_color(elem) {
 			}
 	    }
 	    else {
-	       console.log('XMLHttpRequest not send.');
+	       // console.log('XMLHttpRequest not send.');
 	    }
 	};
  	xhr.send("src_for_face=" + num);
@@ -97,7 +97,7 @@ function	how_much_likes(elem) {
 			}
 	    }
 	    else {
-	       console.log('XMLHttpRequest not send.');
+	       // console.log('XMLHttpRequest not send.');
 	    }
 	};
 
