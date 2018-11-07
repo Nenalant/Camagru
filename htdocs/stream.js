@@ -20,9 +20,29 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                        navigator.mozGetUserMedia ||
                        navigator.msGetUserMedia);
 
-if (navigator.getUserMedia) {
+if (navigator.mozGetUserMedia) {
+  navigator.mediaDevices.getUserMedia({video: true})
+    .then(function(stream) {
+    // if {
+    //   video.srcObject = stream;
+    // } 
+    // else {
+    //   var vendorURL = window.URL || window.webkitURL;
+    //   video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
+    // }
+    video.srcObject = stream;
+    video.play();
+  })
+  .catch(function(err) {
+    var vendorURL = window.URL || window.webkitURL;
+      video.src = vendorURL ? vendorURL.createObjectURL(stream) : stream;
+    console.log("Camera desactivee");
+  });
+}
+
+else if (navigator.getUserMedia) {
   navigator.getUserMedia(
-  { 
+  {
     video: true,
     audio: false
   },
@@ -84,8 +104,8 @@ function takepicture() {
 
     if (tmp_pic_place.hasChildNodes())
     {
-      if (this.tmp_id == 5)
-        this.tmp_id = 5;
+      if (this.tmp_id == 3)
+        this.tmp_id = 3;
       else
       {
         this.tmp_id += 1;
