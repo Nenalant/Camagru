@@ -20,10 +20,18 @@ else if (empty($_POST['new_email']) AND isset($_POST['new_login']) AND isset($_S
 		header("location: user_home.php");
 		exit ;
 	}
+	$old_login = find_user_by_id($db, $_SESSION['id']);
+	
+	$req = $db->prepare('UPDATE photos SET login = :login_new WHERE login = :login_old');
+	$req->execute(array(
+		"login_new" => $newest_login,
+		"login_old" => $old_login));
+	
 	$req = $db->prepare('UPDATE user SET login = :login WHERE id = :id');
 	$req->execute(array(
 		"login" => $newest_login,
 		"id" => $_SESSION['id']));
+
 	$_SESSION['login'] = $newest_login;
 	header("location: user_home.php");
 	exit ;
@@ -110,6 +118,15 @@ function	find_user_by_email($db, $email)
 			alert("Pas d'adresse email correspondant.");
 		</script>
 		<?php
+}
+
+function	find_user_by_id($db, $id) {
+
+	$req = $db->prepare("SELECT login AS login FROM user WHERE id = :id");
+	$req->execute(array("id" => $id));
+	$donnee = $req->fetch();
+
+	return $donnee['login'];
 }
 
 function	creat_token($db, $id, $email) {
