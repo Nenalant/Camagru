@@ -22,6 +22,7 @@ else if (empty($_POST['new_email']) AND isset($_POST['new_login']) AND isset($_S
 	}
 	$old_login = find_user_by_id($db, $_SESSION['id']);
 	change_local_pic_name($old_login, $newest_login);
+	update_likes_and_coms($db, $old_login, $newest_login);
 	$req = $db->prepare('UPDATE photos SET login = :login_new WHERE login = :login_old');
 	$req->execute(array(
 		"login_new" => $newest_login,
@@ -132,6 +133,28 @@ function	find_user_by_id($db, $id) {
 	$donnee = $req->fetch();
 
 	return $donnee['login'];
+}
+
+function	update_likes_and_coms($db, $old_login, $newest_login) {
+	$req = $db->prepare('UPDATE likes SET liker_login = :login_new WHERE liker_login = :login_old');
+	$req->execute(array(
+		"login_new" => $newest_login,
+		"login_old" => $old_login));
+
+	$req = $db->prepare('UPDATE likes SET picture_src = REPLACE(picture_src, :old_src, :new_src) WHERE picture_src LIKE CONCAT(:old_src, \'%\') ');
+	$req->execute(array(
+		"new_src" => $newest_login,
+		"old_src" => $old_login));
+
+	$req = $db->prepare('UPDATE coments SET login = :login_new WHERE login = :login_old');
+	$req->execute(array(
+		"login_new" => $newest_login,
+		"login_old" => $old_login));
+
+	$req = $db->prepare('UPDATE coments SET pic_name = REPLACE(pic_name, :old_src, :new_src) WHERE pic_name LIKE CONCAT(:old_src, \'%\') ');
+	$req->execute(array(
+		"new_src" => $newest_login,
+		"old_src" => $old_login));
 }
 
 function	change_local_pic_name($old_login, $newest_login) {
