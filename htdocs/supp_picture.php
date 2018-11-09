@@ -14,6 +14,7 @@ if ($_GET['supp'] == "supp")
 	$pics_dir = './img/user_img/';
 
 	if ($donne['log'] == $_SESSION['login']) {
+		supp_likes_and_coms($db, $src_pic);
 		unlink($pics_dir . $pic_name);
 		$req = $db->prepare("DELETE FROM photos WHERE src = :src");
 		$req->execute(array("src" => $src_pic));
@@ -25,6 +26,14 @@ if ($_GET['supp'] == "supp")
 			alert("Vous ne pouvez supprimer que vos images");
 				window.location.href='index.php';
 		</script><?php
+}
+
+function	supp_likes_and_coms($db, $src_pic) {
+	$req = $db->prepare("DELETE FROM likes WHERE picture_src = :src");
+	$req->execute(array("src" => $src_pic));
+
+	$req = $db->prepare("DELETE FROM coments WHERE pic_name = :src");
+	$req->execute(array("src" => $src_pic));
 }
 
 ?>
