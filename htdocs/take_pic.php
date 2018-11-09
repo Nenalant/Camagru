@@ -119,11 +119,6 @@ $_SESSION["tmp_for_js"] = false;
 			</li>
 			<li>
 				<a href="#">
-				<img id="cat" src="img/filters/cat.png" class="filters" onclick="put_filter_on_cam(this.id)">
-				</a>
-			</li>
-			<li>
-				<a href="#">
 				<img id="cat_ears" src="img/filters/cat_ears.png" class="filters" onclick="put_filter_on_cam(this.id)">
 				</a>
 			</li>
