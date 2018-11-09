@@ -47,14 +47,12 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 			fwrite($fp, $data);
 			fclose($fp);
 			$data = imagecreatefrompng("." . $img_from_video);
-		echo "data3 === " . $data . "\n";
 		$res_img = imagecreatetruecolor(imagesx($data), imagesy($data));
 		imagecopy($res_img, $data, 0, 0, 0, 0, imagesx($data), imagesy($data));
 		imagecopyresized ($res_img, $filter, 200/3, 2, 0, 0, 65, 65, imagesx($filter), imagesy($filter));
 		}
 		else {
 			$extension = pathinfo($img);
-			echo $extension['extension'];
 			switch ($extension['extension']) {
 				case 'png':
 					$data = imagecreatefrompng($img);
@@ -63,8 +61,6 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 				case 'jpg':
 					$data = imagecreatefromjpeg($img);
 			}
-			echo "data == " . $data . "\n";
-			echo "filter == " . $filter . "\n";
 		$filter_final_size = 100 * imagesx($data) / (250 * imagesx($data) / imagesy($data));
 		$width_r = imagesx($data) / 2 - $filter_final_size / 2;
 		$res_img = imagecreatetruecolor(imagesx($data), imagesy($data));
@@ -89,9 +85,8 @@ if (isset($_POST['img']) && !empty($_POST['img']) &&
 			print $sucess ? $file : "Unable to save this image.";
 		}
 		else {
-			?><script type="text/javascript">
-				alert("Une erreur est survenue avec l image");
-			</script><?php
+			header("location: take_pic.php");
+			exit ;
 		}
 }
 

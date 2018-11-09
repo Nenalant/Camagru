@@ -27,6 +27,8 @@ $db = bdd();
 				<div>
 					<?php if (isset($_SESSION['login'])) { ?>
 					<a href="user_home.php" id="username">
+					<?php } else {  ?>
+					<a onclick="must_be_co_to_user()" id="username">
 					<?php } ?>
 					<img src="./img/website_img/cute_user.png" id="user"/>
 				</div>
@@ -37,6 +39,8 @@ $db = bdd();
 			  <div class="hiconetoicon">
 			  	<?php if (isset($_SESSION['login'])) { ?>
 				<a href="take_pic.php">
+					<?php } else {  ?>
+					<a onclick="must_be_co_to_takepic()" id="username">
 					<?php } ?>
 				  <img src="./img/website_img/cam.png" id="cam"/>
 				</a>
@@ -104,7 +108,7 @@ $db = bdd();
 							  	<span id="num_likes'.$pic_name.'" class="num_of_likes"></span>
 							</div>
 							  <div id="com_post">
-								<form onsubmit=must_be_connected()>
+								<form onsubmit=must_be_co_to_pub()>
 									<input type="text" name="one_com" id="one_coment'.$pic_name.'" placeholder="Connecte toi pour commenter" required="" pattern="[A-Za-z0-9]{1,15}"/>
 									<input type="submit" name="sub_com" value="Publier" class="sub_comment"/>
 									</form>

@@ -40,9 +40,12 @@ if (isset($_POST['submit'])) {
             echo "An error occurred somewhere. Try again or contact the admin";
         }
     } else {
-        foreach ($errors as $error) {
-            echo $error . "\n" . "These are the errors" . "\n";
-        }
+        ?>
+        <script language="javascript">
+            alert("Extension non supportée ou image trop volumineuse.");
+            window.location.replace("take_pic.php");
+        </script>
+        <?php 
     }
 }
 ?>

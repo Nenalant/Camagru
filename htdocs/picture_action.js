@@ -31,8 +31,20 @@ function	comment_published() {
 	alert("Votre commentaire a été publié !");
 }
 
-function	must_be_connected () {
+function	must_be_connected() {
 	alert("Connectez vous pour aimer les photos");
+}
+
+function	must_be_co_to_pub() {
+	alert("Connectez vous pour publier des commentaires");
+}
+
+function	must_be_co_to_user() {
+	alert("Connectez vous pour acceder a votre profil");
+}
+
+function	must_be_co_to_takepic() {
+	alert("Connectez vous pour partager des photos");
 }
 
 function	liku_color(elem) {
